@@ -26,6 +26,8 @@
 
 - name: Configure public routing tables
   ec2_vpc_route_table:
+    aws_access_key: "{{ access_key_id }}"
+    aws_secret_key: "{{ secret_access_key }}"
     vpc_id: "{{ jenkins_vpc.vpc_id }}"
     region: "{{ target_region }}"
     tags:
