@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# This is a pre-push hook that will reject the push if either unit tests
+# or behave tests fail. It requires nose2 and behave to exist.
+
