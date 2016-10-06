@@ -1,0 +1,11 @@
+---
+# Next pull and install the docker images per host, per availability zone
+- name: Pull and run the dockerized jenkins container
+  docker_container:
+    name: "jenkins"
+    image: "{{ deployment.jenkins.image_name }}:{{ deployment.jenkins.image_version }}"
+    pull: yes
+    keep_volumes: no
+    memory: "{{ deployment.jenkins.container_memory }}"
+    restart_policy: always
+    ports: "{{ deployment.jenkins.port_mapping }}"

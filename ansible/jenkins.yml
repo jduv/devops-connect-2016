@@ -1,0 +1,22 @@
+---
+# create EC2 instances
+- hosts: localhost
+  gather_facts: False
+  vars_files:
+    - vars/config.yml
+    - vars/credentials.yml
+    - "regions/jenkins_{{ target_region }}_{{ deployment_group }}.yml"
+  roles:
+    - role: create_ec2_instances
+
+# configure the mongo hosts
+- hosts: jenkins
+  gather_facts: False
+  become: yes
+  vars_files:
+    - vars/config.yml
+    - vars/credentials.yml
+    - "regions/jenkins_{{ target_region }}_{{ deployment_group }}.yml"
+  roles:
+    - install_docker
+    - install_jenkins

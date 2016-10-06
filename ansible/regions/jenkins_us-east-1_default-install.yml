@@ -1,0 +1,19 @@
+---
+deployment:
+  group: "{{ deployment_group }}"
+  region: "{{ target_region }}"
+  environment: "{{ env }}"
+  vpc_name: "JenkinsBotNet"
+  vpc_cidr: 172.24.0.0/16
+  jenkins:
+    ami_id: "ami-c481fad3"
+    image_name: "jenkins"
+    image_version: "latest"
+    container_memory: "500MB"
+    port_mapping:
+      - "8080:8080"
+      - "50000:5000"
+    azs:
+      - zone: "us-east-1b"
+        ensure_count: 1
+        subnet_cidr: 172.24.1.0/24

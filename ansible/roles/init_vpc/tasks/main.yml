@@ -1,0 +1,43 @@
+---
+- name: Create a VPC for the whole stack
+  ec2_vpc:
+    aws_access_key: "{{ access_key_id }}"
+    aws_secret_key: "{{ secret_access_key }}"
+    region: "{{ target_region }}"
+    state: present
+    cidr_block: "{{ deployment.vpc_cidr }}"
+    resource_tags:
+      Name: "{{ deployment.vpc_name }}"
+    internet_gateway: True
+  register: jenkins_vpc
+
+- name: Assign subnets per AZ
+  ec2_vpc_subnet:
+    aws_access_key: "{{ access_key_id }}"
+    aws_secret_key: "{{ secret_access_key }}"
+    region: "{{ target_region }}"
+    vpc_id: "{{ jenkins_vpc.vpc_id }}"
+    az: "{{ item.zone }}"
+    cidr: "{{ item.subnet_cidr }}"
+    resource_tags:
+      Name: "JenkinsSubnet"
+  register: jenkins_subnets
+  with_items: "{{ deployment.jenkins.azs }}"
+
+- name: Configure public routing tables
+  ec2_vpc_route_table:
+    vpc_id: "{{ jenkins_vpc.vpc_id }}"
+    region: "{{ target_region }}"
+    tags:
+      Name: Public
+    subnets: "{{ item.subnet.id }}"
+    routes:
+      - dest: 0.0.0.0/0
+        gateway_id: "{{ jenkins_vpc.igw_id }}"
+  with_items:
+    - "{{ jenkins_subnets.results }}"
+
+- name: Iterating over subnets and registering subnet IDs to AZs
+  set_fact:
+    subnets_to_azs: "{{ subnets_to_azs + [ { 'subnet_id': item.subnet.id , 'zone': item.subnet.availability_zone }] }}"
+  with_items: "{{ jenkins_subnets.results }}"

@@ -1,0 +1,14 @@
+---
+# SSH configuration
+ec2_ssh_user: ec2-user
+buildbox_ssh_key_name: Jenkins
+buildbox_ssh_key_path: keys/Jenkins.pem
+
+# Miscellaneous
+buildbox_instance_type: t2.micro
+
+# global variables 
+
+# used to map subnet values to availability zones.
+# not sure of a better way to do this at the moment
+subnets_to_azs: []

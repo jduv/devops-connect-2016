@@ -1,0 +1,12 @@
+---
+- hosts: localhost
+  gather_facts: False
+  connection: local
+  vars_files:
+    - vars/config.yml
+    - vars/credentials.yml
+    - "regions/jenkins_{{ target_region }}_{{ deployment_group }}.yml"
+  roles:
+    - init_vpc
+
+- include: jenkins.yml

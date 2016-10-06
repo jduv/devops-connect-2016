@@ -1,0 +1,15 @@
+---
+# tasks file for docker_install
+- name: install docker on ec2 instances
+  yum:
+    name: docker
+    state: latest # lock this down to a specific version
+
+- name: Ensure docker started and enabled
+  service:
+    name: docker
+    enabled: yes
+    state: started 
+
+- name: Ensure docker python modules are installed.
+  pip: name=docker-py version=1.8.1
