@@ -6,4 +6,4 @@ This repo contains the source code for the "zero to DevOps" talk I'm giving at D
 
 In the ```ansible``` directory you'll find everything required to install a running dockerized jenkins container into it's own VPC in AWS. This doesn't include fancy stuff like build farms, but it's an excellent place to begin running continuous integration jobs immediately with a shiny build server in the sky. 
 
-Do webhooks work?
+Once the server is running, SSH into it and then into the docker container. The initial administrative password will live at ```/var/jenkins_home/secrets/initialAdminPassword```, so ```cat``` that file and paste it into the jenkins lock screen.
