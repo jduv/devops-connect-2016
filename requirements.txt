@@ -4,4 +4,4 @@ Werkzeug==0.11.11
 behave==1.2.2
 parse==1.5.3
 wsgiref==0.1.2
-nose2=0.6.5
+nose2==0.6.5
