@@ -1,16 +1,3 @@
-flaskr-bdd
-==========
+# Zero to DevOps!
 
-Flask Behaviour Driven Design Example, using the flask tutorial at:
-
-http://flask.pocoo.org/docs/tutorial/
-
-and behave
-
-https://github.com/jeamland/behave
-
-1. Create virtualenv
-2. pip install from requirements
-3. run behave
-
-
+This repo contains the source code for the "zero to DevOps" talk I'm giving at DevOps Connect 2016. The basic idea is to create, using Ansible, a complete end-to-end pipeline with the Flaskr python example. This includes running python based unit tests and as an added bonus executing ```behave``` BDD tests.
