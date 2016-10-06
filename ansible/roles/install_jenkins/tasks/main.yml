@@ -1,6 +1,6 @@
 ---
 - name: Copy the dockerfile to our user directory
-  file: 
+  copy: 
     src: "templates/Dockerfile"
     dest: "~/Dockerfile"
 
