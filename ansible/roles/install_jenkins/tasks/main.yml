@@ -1,10 +1,22 @@
 ---
+- name: Copy the dockerfile to our user directory
+  template: 
+    src: "templates/Dockerfile"
+    dest: "~"
+
+- name: Build our custom docker image
+  docker_image:
+    state: build
+    name: jduv-jenkins
+    path: ~
+    pull: yes
+    tag: latest
+
 # Next pull and install the docker images per host, per availability zone
 - name: Pull and run the dockerized jenkins container
   docker_container:
     name: "jenkins"
-    image: "{{ deployment.jenkins.image_name }}:{{ deployment.jenkins.image_version }}"
-    pull: yes
+    image: "jduv-jenkins:latest"
     keep_volumes: no
     memory: "{{ deployment.jenkins.container_memory }}"
     restart_policy: always
